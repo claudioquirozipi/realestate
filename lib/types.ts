@@ -24,6 +24,16 @@ export interface RealEstate {
 
 export interface ListingsResponse { data: RealEstate[]; total: number; page: number; limit: number }
 
+export interface Business {
+  name: string
+  logo: string | null
+  description: string | null
+  phone: string | null
+  email: string | null
+  website: string | null
+  currency: string
+}
+
 export interface ListingFilters {
   listingType?: string; type?: string; city?: string; neighborhood?: string
   minPrice?: string; maxPrice?: string; bedrooms?: string; page?: number; limit?: number

@@ -1,4 +1,4 @@
-import { ListingFilters, ListingsResponse, RealEstate } from './types'
+import { Business, ListingFilters, ListingsResponse, RealEstate } from './types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 const BUSINESS_ID = process.env.NEXT_PUBLIC_BUSINESS_ID
@@ -14,6 +14,12 @@ export async function fetchListings(filters: ListingFilters = {}): Promise<Listi
   if (filters.bedrooms) params.set('bedrooms', filters.bedrooms)
   const res = await fetch(`${API_URL}/v1/storefront/real-estate?${params}`, { cache: 'no-store' })
   if (!res.ok) throw new Error('Failed to fetch listings')
+  return res.json()
+}
+
+export async function fetchBusiness(): Promise<Business> {
+  const res = await fetch(`${API_URL}/v1/storefront/business?businessId=${BUSINESS_ID}`, { cache: 'force-cache' })
+  if (!res.ok) throw new Error('Failed to fetch business')
   return res.json()
 }
 

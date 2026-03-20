@@ -1,7 +1,8 @@
 'use client'
 
-export default function WhatsAppButton() {
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+export default function WhatsAppButton({ phone }: { phone: string | null }) {
+  if (!phone) return null
+  const number = phone.replace(/\D/g, '')
   const message = encodeURIComponent('Hola Interurbana, me interesa conocer sus propiedades')
   const href = `https://wa.me/${number}?text=${message}`
 

@@ -2,11 +2,9 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { fetchListings } from '@/lib/api'
-import { ListingFilters, RealEstate } from '@/lib/types'
+import { Business, ListingFilters, RealEstate } from '@/lib/types'
 import HeroSearch from './HeroSearch'
 import PropertyGrid from './PropertyGrid'
-
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
 
 const TYPE_LABELS: Record<string, string> = {
   APARTMENT: 'Apartamento',
@@ -23,7 +21,8 @@ const LISTING_TYPE_LABELS: Record<string, string> = {
   SALE_OR_RENT: 'Venta o Alquiler',
 }
 
-export default function ListingsPage() {
+export default function ListingsPage({ business }: { business: Business | null }) {
+  const whatsappNumber = business?.phone?.replace(/\D/g, '') ?? undefined
   const [filters, setFilters] = useState<ListingFilters>({ page: 1, limit: 9 })
   const [listings, setListings] = useState<RealEstate[]>([])
   const [total, setTotal] = useState(0)
@@ -158,7 +157,7 @@ export default function ListingsPage() {
           <PropertyGrid
             properties={listings}
             loading={loading}
-            whatsappNumber={WHATSAPP_NUMBER}
+            whatsappNumber={whatsappNumber}
           />
         )}
 
